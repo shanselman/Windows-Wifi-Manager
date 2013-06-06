@@ -10,11 +10,12 @@ namespace WifiProfiles
     class Program
     {
         static void Main(string[] args)
-        {
+        { 
+            //command line arguments officially got irritating at this point but I don't feel like bringing in a whole library.
             if (args.Length > 1 && args[0].ToUpperInvariant() == "DELETE" && !string.IsNullOrEmpty(args[1]))
                 Delete(args[1]);
             else
-                List(args[0].ToUpperInvariant() == "/DELETEAUTOOPEN");
+                List(args.Length > 1 && args[0].ToUpperInvariant() == "/DELETEAUTOOPEN");
         }
 
         static void Delete(string profileName)
@@ -35,11 +36,11 @@ namespace WifiProfiles
             if (sawBadWifi)
             {
                 Console.WriteLine("\r\nDelete WiFi profiles that are OPEN *and* AUTO connect? [y/n]");
-                if (autoDelete || Console.ReadLine().Trim().ToUpperInvariant()[0] == 'Y')
+                if (autoDelete || Console.ReadLine().Trim().ToUpperInvariant().StartsWith("Y"))
                 {
                     foreach (var a in profiles.Where(a => NetShWrapper.IsOpenAndAutoWifiProfile(a)))
                     {
-                        Console.WriteLine(NetShWrapper.DeleteWifiProfile(a.Name));
+                        //Console.WriteLine(NetShWrapper.DeleteWifiProfile(a.Name));
                     }
                 }
             }
