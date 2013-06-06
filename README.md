@@ -13,6 +13,10 @@ The code is garbage, but it made for a fun evening. Comments welcome.
 
 I think I may add "wifiprofiles delete NAME" as well. That would be useful. Or you can. ;)
 
+##Possibilities
+
+I have a WifiProfile class that's basic, but it woudln't be hard to put a WinForms wrapper around this thing. It would be a fun challenge to DUPLICATE the Win7 dialog exactly.
+
 ##Example Run
 
 ````C:\>WifiProfiles.exe
