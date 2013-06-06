@@ -40,7 +40,7 @@ namespace WifiProfiles
                 {
                     foreach (var a in profiles.Where(a => NetShWrapper.IsOpenAndAutoWifiProfile(a)))
                     {
-                        //Console.WriteLine(NetShWrapper.DeleteWifiProfile(a.Name));
+                        Console.WriteLine(NetShWrapper.DeleteWifiProfile(a.Name));
                     }
                 }
             }
