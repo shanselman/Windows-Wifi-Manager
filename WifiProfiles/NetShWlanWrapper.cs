@@ -35,7 +35,7 @@ namespace NetSh
             foreach (string file in Directory.EnumerateFiles(Environment.CurrentDirectory, "*.xml"))
             {
                 var x = XElement.Load(file);
-                if (x.Name.Namespace == "http://www.microsoft.com/networking/WLAN/profile/v1")
+                if (x.Name.Namespace == ns)
                 {
                     //Yeah, I know.
                     string name = x.Descendants(ns + "name").First().Value;
@@ -79,7 +79,7 @@ namespace NetSh
         {
             //Delete the exported profiles we made, making sure they are what we think they are! 
             foreach (string file in Directory.EnumerateFiles(Environment.CurrentDirectory, "*.xml"))
-                if (XElement.Load(file).Name.Namespace == "http://www.microsoft.com/networking/WLAN/profile/v1")
+                if (XElement.Load(file).Name.Namespace == ns)
                     File.Delete(file);
         }
 
