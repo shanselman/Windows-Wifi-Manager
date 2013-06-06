@@ -32,6 +32,7 @@ Sunrise_Bagels           manual       open
 Wayport_Access           manual       open
 
 No WiFi profiles set to OPEN and AUTO connect were found.
-Option: Run with /deleteautoopen to auto delete.````
+Option: Run with /deleteautoopen to auto delete.
+````
 
 
