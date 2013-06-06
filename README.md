@@ -9,9 +9,9 @@ This is a little utility that shows you just the stuff you need to know about yo
 
 Also, if you call it with the option /deleteautoopen it will automatically delete any profiles that are BOTH open and set to connect automatically.
 
-The code is garbage, but it made for a fun evening. Comments welcome.
+If you run "wifiprofiles delete NAME", it will delete the specified profile.
 
-I think I may add "wifi delete NAME" as well. That would be useful. Or you can. ;)
+The code is garbage, but it made for a fun evening. Comments welcome.
 
 ##Possibilities
 

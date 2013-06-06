@@ -49,9 +49,9 @@ namespace NetSh
             return profiles;
         }
 
-        public static string DeleteWifiProfile(WifiProfile profile)
+        public static string DeleteWifiProfile(string profileName)
         {
-            string result = ExecuteNetSh("wlan delete profile name=\"" + profile.Name + "\"");
+            string result = ExecuteNetSh("wlan delete profile name=\"" + profileName + "\"");
             return result;
 
         }
