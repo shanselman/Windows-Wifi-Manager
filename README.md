@@ -11,7 +11,7 @@ Also, if you call it with the option /deleteautoopen it will automatically delet
 
 The code is garbage, but it made for a fun evening. Comments welcome.
 
-I think I may add "wifiprofiles delete NAME" as well. That would be useful. Or you can. ;)
+I think I may add "wifi delete NAME" as well. That would be useful. Or you can. ;)
 
 ##Possibilities
 
@@ -19,7 +19,7 @@ I have a WifiProfile class that's basic, but it woudln't be hard to put a WinFor
 
 ##Example Run
 
-````C:\>WifiProfiles.exe
+````C:\>Wifi.exe
 AP-guest                 manual    WPA2PSK
 HANSELMAN-N                auto    WPA2PSK
 HANSELMAN                  auto    WPA2PSK
