@@ -22,7 +22,8 @@ namespace WifiProfiles
             if (sawBadWifi)
             {
                 Console.WriteLine("\r\nDelete WiFi profiles that are OPEN *and* AUTO connect? [y/n]");
-                if (args[0].ToUpperInvariant() == "/DELETEAUTOOPEN" || Console.ReadLine().Trim().ToUpperInvariant()[0] == 'Y')
+                if (args.Length > 0 && args[0].ToUpperInvariant() == "/DELETEAUTOOPEN" || 
+                    Console.ReadLine().Trim().ToUpperInvariant().StartsWith("Y"))
                 {
                     Console.WriteLine("in here");
                     foreach (var a in profiles.Where(a => NetShWrapper.IsOpenAndAutoWifiProfile(a)))
