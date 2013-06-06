@@ -11,6 +11,19 @@ namespace WifiProfiles
     {
         static void Main(string[] args)
         {
+            if (args.Length > 1 && args[0].ToUpperInvariant() == "DELETE" && !string.IsNullOrEmpty(args[1]))
+                Delete(args[1]);
+            else
+                List(args[0].ToUpperInvariant() == "/DELETEAUTOOPEN");
+        }
+
+        static void Delete(string profileName)
+        {
+            Console.WriteLine(NetShWrapper.DeleteWifiProfile(profileName));
+        }
+
+        static void List(bool autoDelete)
+        {
             var profiles = NetShWrapper.GetWifiProfiles();
             bool sawBadWifi = false;
             foreach (var a in profiles)
@@ -22,12 +35,11 @@ namespace WifiProfiles
             if (sawBadWifi)
             {
                 Console.WriteLine("\r\nDelete WiFi profiles that are OPEN *and* AUTO connect? [y/n]");
-                if (args[0].ToUpperInvariant() == "/DELETEAUTOOPEN" || Console.ReadLine().Trim().ToUpperInvariant()[0] == 'Y')
+                if (autoDelete || Console.ReadLine().Trim().ToUpperInvariant()[0] == 'Y')
                 {
-                    Console.WriteLine("in here");
                     foreach (var a in profiles.Where(a => NetShWrapper.IsOpenAndAutoWifiProfile(a)))
                     {
-                        Console.WriteLine(NetShWrapper.DeleteWifiProfile(a));
+                        Console.WriteLine(NetShWrapper.DeleteWifiProfile(a.Name));
                     }
                 }
             }
