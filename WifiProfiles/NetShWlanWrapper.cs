@@ -37,12 +37,11 @@ namespace NetSh
                 var x = XElement.Load(file);
                 if (x.Name.Namespace == ns)
                 {
-                    //Yeah, I know.
-                    string name = x.Descendants(ns + "name").First().Value;
-                    string mode = x.Descendants(ns + "connectionMode").First().Value;
-                    string auth = x.Descendants(ns + "authentication").First().Value;
-
-                    profiles.Add(new WifiProfile() { Name = name, ConnectionMode = mode, Authentication = auth });
+                    profiles.Add(new WifiProfile() { 
+                        Name = x.Descendants(ns + "name").First().Value,
+                        ConnectionMode = x.Descendants(ns + "connectionMode").First().Value,
+                        Authentication = x.Descendants(ns + "authentication").First().Value 
+                    });
                 }
             }
             DeleteExportedWifiProfiles();
@@ -51,7 +50,7 @@ namespace NetSh
 
         public static string DeleteWifiProfile(string profileName)
         {
-            string result = ExecuteNetSh("wlan delete profile name=\"" + profileName + "\"");
+            string result = ExecuteNetSh(String.Format("wlan delete profile name=\"{0}\"", profileName));
             return result;
 
         }
@@ -65,19 +64,18 @@ namespace NetSh
         {
             //string result = "\r\nProfiles on interface Wi-Fi:\r\n\r\nGroup policy profiles (read only)\r\n---------------------------------\r\n    A-MSFTWLAN (WPA2)\r\n    A-MSFTWLAN (WPA)\r\n    MSFTWLAN (WEP)\r\n\r\nUser profiles\r\n-------------\r\n    All User Profile     : Wayport_Access\r\n    All User Profile     : nalen dressingroom\r\n    All User Profile     : Scott's iPhone 4s\r\n    All User Profile     : HANSELMAN\r\n    All User Profile     : HANSELMAN-N\r\n    All User Profile     : HanselSpot\r\n    All User Profile     : SFO-WiFi\r\n    All User Profile     : AP-guest\r\n    All User Profile     : EliteWifi\r\n    All User Profile     : Qdoba Free Wifi\r\n    All User Profile     : Sunrise_Bagels\r\n\r\n";
             string result = ExecuteNetSh("wlan show profiles");
-            var listOfProfiles = from line in result.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries)
-                                 where line.Contains(":")
-                                 let l = line
-                                 where l.Last() != ':'
-                                 select l.Split(':')[1].Trim();
-
+            var listOfProfiles = from line in result.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries) 
+                                 let l = line.Split(new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries) 
+                                 where l.Length > 1 
+                                 select l[1].Trim();
+            
             foreach (string profile in listOfProfiles)
                 ExecuteNetSh(String.Format("wlan export profile \"{0}\" folder=\"{1}\"", profile, Environment.CurrentDirectory));
         }
 
         public static void DeleteExportedWifiProfiles()
         {
-            //Delete the exported profiles we made, making sure they are what we think they are! 
+            //Delete the exported profiles we made, making sure they are what we think they are!
             foreach (string file in Directory.EnumerateFiles(Environment.CurrentDirectory, "*.xml"))
                 if (XElement.Load(file).Name.Namespace == ns)
                     File.Delete(file);
