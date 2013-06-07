@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
-using System.Xml.XPath;
 
 namespace NetSh
 {
@@ -19,8 +16,8 @@ namespace NetSh
 
     /// <summary>
     /// Lots of questions about what this should look like. I'm making temp files, calling shell stuff
-    /// and generally being evil. Should this be IDispoable? Is it better to call something in WMI?
-    /// Your thoughts are appreciate. My goal is "it works" and "fewer lines of code." 
+    /// and generally being evil. Should this be IDisposible? Is it better to call something in WMI?
+    /// Your thoughts are appreciated. My goal is "it works" and "fewer lines of code." 
     /// Not to mention this was hacked together in 20 minutes. - Scott Hanselman
     /// </summary>
     public class NetShWrapper
@@ -51,21 +48,19 @@ namespace NetSh
 
         public static string DeleteWifiProfile(string profileName)
         {
-            string result = ExecuteNetSh("wlan delete profile name=\"" + profileName + "\"");
-            return result;
-
+            return ExecuteNetSh("wlan delete profile name=\"" + profileName + "\"");
         }
 
         public static bool IsOpenAndAutoWifiProfile(WifiProfile profile)
         {
-            return profile.Authentication == "open" && profile.ConnectionMode == "auto";
+            return String.Equals(profile.Authentication, "open", StringComparison.CurrentCultureIgnoreCase)
+                && String.Equals(profile.ConnectionMode, "auto", StringComparison.CurrentCultureIgnoreCase);
         }
 
         private static void ExportAllWifiProfiles()
         {
-            //string result = "\r\nProfiles on interface Wi-Fi:\r\n\r\nGroup policy profiles (read only)\r\n---------------------------------\r\n    A-MSFTWLAN (WPA2)\r\n    A-MSFTWLAN (WPA)\r\n    MSFTWLAN (WEP)\r\n\r\nUser profiles\r\n-------------\r\n    All User Profile     : Wayport_Access\r\n    All User Profile     : nalen dressingroom\r\n    All User Profile     : Scott's iPhone 4s\r\n    All User Profile     : HANSELMAN\r\n    All User Profile     : HANSELMAN-N\r\n    All User Profile     : HanselSpot\r\n    All User Profile     : SFO-WiFi\r\n    All User Profile     : AP-guest\r\n    All User Profile     : EliteWifi\r\n    All User Profile     : Qdoba Free Wifi\r\n    All User Profile     : Sunrise_Bagels\r\n\r\n";
             string result = ExecuteNetSh("wlan show profiles");
-            var listOfProfiles = from line in result.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries)
+            var listOfProfiles = from line in result.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
                                  where line.Contains(":")
                                  let l = line
                                  where l.Last() != ':'
@@ -92,8 +87,7 @@ namespace NetSh
             p.StartInfo.RedirectStandardOutput = true;
             p.Start();
 
-            string output = p.StandardOutput.ReadToEnd();
-            return output;
+            return p.StandardOutput.ReadToEnd();
         }
     }
 }
