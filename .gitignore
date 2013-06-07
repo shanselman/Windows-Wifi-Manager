@@ -109,3 +109,6 @@ UpgradeLog*.XML
 
 # ReSharper files - let's not open that can of worms just yet
 *.DotSettings
+=======
+# ignore any generated packages for Chocolatey
+*.nupkg
