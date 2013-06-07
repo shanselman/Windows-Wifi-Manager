@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>wifi-manager</id>
+    <title>Windows WiFi Manager</title>
+    <version>0.1</version>
+    <authors>Scott Hanselman</authors>
+    <owners>Scott Hanselman</owners>
+    <summary>A utility for managing your WiFi profiles in Windows 7 and 8</summary>
+    <description>After a podcast discussion with Troy Hunt discussing how WiFi profiles for unsecured networks on your laptop or smartphone are vulnerable to spoofing, Scott wrote this utility to find and delete these profiles. You should definitely run this to clean up these values, because someone could imitate an unsecured network - and your device will happily connect to it without your knowledge.</description>
+    <projectUrl>https://github.com/shanselman/Windows-Wifi-Manager</projectUrl>
+    <tags>wifi profiles security</tags>
+    <!--<licenseUrl>__REPLACE__</licenseUrl>-->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <iconUrl>https://raw.github.com/shanselman/Windows-Wifi-Manager/master/logo.png</iconUrl>
+    <releaseNotes>First preview!</releaseNotes>
+  </metadata>
+  <files>
+    <file src="WiFiProfiles\bin\Release\WiFi.exe" target="tools" />
+  </files>
+</package>
