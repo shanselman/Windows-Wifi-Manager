@@ -106,3 +106,6 @@ Generated_Code #added for RIA/Silverlight projects
 _UpgradeReport_Files/
 Backup*/
 UpgradeLog*.XML
+
+# ReSharper files - let's not open that can of worms just yet
+*.DotSettings
