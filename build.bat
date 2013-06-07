@@ -1,3 +1,3 @@
 @echo OFF
-msbuild
-ECHO "WifiProfiles.exe is in WifiProfiles/bin/debug."
+msbuild /p:Configuration=Release /t:Rebuild
+ECHO "WiFi.exe is in WifiProfiles/bin/Release/"
