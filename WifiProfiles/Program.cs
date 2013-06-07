@@ -23,10 +23,10 @@ namespace WifiProfiles
         static void List(bool autoDelete)
         {
             var profiles = NetShWrapper.GetWifiProfiles();
-            bool sawBadWifi = false;
+            var sawBadWifi = false;
             foreach (var a in profiles)
             {
-                string warning = NetShWrapper.IsOpenAndAutoWifiProfile(a) ? "Warning: AUTO connect to OPEN WiFi" : String.Empty;
+                var warning = NetShWrapper.IsOpenAndAutoWifiProfile(a) ? "Warning: AUTO connect to OPEN WiFi" : String.Empty;
                 Console.WriteLine("{0,-20} {1,10} {2,10} {3,30} ", a.Name, a.ConnectionMode, a.Authentication, warning);
                 if (!String.IsNullOrWhiteSpace(warning)) sawBadWifi = true;
             }
