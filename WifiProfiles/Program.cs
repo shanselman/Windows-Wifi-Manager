@@ -1,9 +1,6 @@
 ﻿using NetSh;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WifiProfiles
 {
@@ -48,7 +45,6 @@ namespace WifiProfiles
             {
                 Console.WriteLine("\r\nNo WiFi profiles set to OPEN and AUTO connect were found. \r\nOption: Run with /deleteautoopen to auto delete.");
             }
-            //Console.ReadKey();
         }
     }
 }
