@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using System.Xml.XPath;
-
-namespace NetSh
+﻿namespace NetSh
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Linq;
+    using System.Xml.Linq;
+
     /// <summary>
     /// Lots of questions about what this should look like. I'm making temp files, calling shell stuff
     /// and generally being evil. Should this be IDispoable? Is it better to call something in WMI?
