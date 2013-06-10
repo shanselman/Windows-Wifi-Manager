@@ -10,13 +10,6 @@ using System.Xml.XPath;
 
 namespace NetSh
 {
-    public class WifiProfile
-    {
-        public string Name { get; set; }
-        public string Authentication { get; set; }
-        public string ConnectionMode { get; set; }
-    }
-
     /// <summary>
     /// Lots of questions about what this should look like. I'm making temp files, calling shell stuff
     /// and generally being evil. Should this be IDispoable? Is it better to call something in WMI?
