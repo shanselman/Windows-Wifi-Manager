@@ -112,3 +112,6 @@ UpgradeLog*.XML
 =======
 # ignore any generated packages for Chocolatey
 *.nupkg
+
+# OS generated files
+Thumbs.db
