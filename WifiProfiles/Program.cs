@@ -1,9 +1,9 @@
-﻿using NetSh;
-using System;
-using System.Linq;
-
-namespace WifiProfiles
+﻿namespace WifiProfiles
 {
+    using NetSh;
+    using System;
+    using System.Linq;
+
     class Program
     {
         static void Main(string[] args)
