@@ -3,7 +3,7 @@
   <metadata>
     <id>wifi-manager</id>
     <title>Windows WiFi Manager</title>
-    <version>0.1</version>
+    <version>$version$</version>
     <authors>Scott Hanselman</authors>
     <owners>Scott Hanselman</owners>
     <summary>A utility for managing your WiFi profiles in Windows 7 and 8</summary>
@@ -16,6 +16,6 @@
     <releaseNotes>First preview!</releaseNotes>
   </metadata>
   <files>
-    <file src="WiFiProfiles\bin\Release\WiFi.exe" target="tools" />
+    <file src="..\BuildArtifacts\WiFi.exe" target="tools" />
   </files>
 </package>
