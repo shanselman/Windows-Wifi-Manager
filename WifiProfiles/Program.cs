@@ -9,10 +9,10 @@
         static void Main(string[] args)
         { 
             //command line arguments officially got irritating at this point but I don't feel like bringing in a whole library.
-            if (args.Length > 1 && args[0].ToUpperInvariant() == "DELETE" && !string.IsNullOrEmpty(args[1]))
+            if (args.Length > 1 && args[0].ToUpperInvariant() == Resources.stringResources.Delete && !string.IsNullOrEmpty(args[1]))
                 Delete(args[1]);
             else
-                List(args.Length == 1 && args[0].ToUpperInvariant() == "/DELETEAUTOOPEN");
+                List(args.Length == 1 && args[0].ToUpperInvariant() == Resources.stringResources.AutoDeletarParam);
         }
 
         static void Delete(string profileName)
@@ -27,15 +27,15 @@
 
             foreach (var a in profiles)
             {
-                var warning = NetShWrapper.IsOpenAndAutoWifiProfile(a) ? "Warning: AUTO connect to OPEN WiFi" : String.Empty;
+                var warning = NetShWrapper.IsOpenAndAutoWifiProfile(a) ? Resources.stringResources.WarningAutoConnect : String.Empty;
                 Console.WriteLine("{0,-20} {1,10} {2,10} {3,30} ", a.Name, a.ConnectionMode, a.Authentication, warning);
                 if (!String.IsNullOrWhiteSpace(warning)) badWifiNetworkFound = true;
             }
 
             if (badWifiNetworkFound)
             {
-                if(!autoDelete) Console.WriteLine("\r\nDelete WiFi profiles that are OPEN *and* AUTO connect? [y/n]");
-                if (autoDelete || Console.ReadLine().Trim().ToUpperInvariant().StartsWith("Y"))
+                if(!autoDelete) Console.WriteLine(Resources.stringResources.DeleteAutoConnect);
+                if (autoDelete || Console.ReadLine().Trim().ToUpperInvariant().StartsWith(Resources.stringResources.AutoDeleteChar))
                 {
                     foreach (var a in profiles.Where(NetShWrapper.IsOpenAndAutoWifiProfile))
                     {
@@ -45,7 +45,7 @@
             }
             else
             {
-                Console.WriteLine("\r\nNo WiFi profiles set to OPEN and AUTO connect were found. \r\nOption: Run with /deleteautoopen to auto delete.");
+                Console.WriteLine( Resources.stringResources.NoWifi);
             }
         }
     }

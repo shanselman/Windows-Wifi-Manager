@@ -41,10 +41,22 @@
     <Compile Include="NetShWlanWrapper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\stringResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>stringResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="WifiProfile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\stringResources.pt-BR.resx" />
+    <EmbeddedResource Include="Resources\stringResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>stringResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
