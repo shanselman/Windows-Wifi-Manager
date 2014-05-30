@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/jp1g7s4mn1hu5egk)](https://ci.appveyor.com/project/ScottHanselman/windows-wifi-manager)
+
 Windows-Wifi-Manager
 ====================
 
