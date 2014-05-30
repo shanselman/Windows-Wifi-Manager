@@ -1,4 +1,6 @@
-﻿namespace NetSh
+﻿using System.Text.RegularExpressions;
+
+namespace NetSh
 {
     using System;
     using System.Collections.Generic;
@@ -54,13 +56,14 @@
         {
             //string result = "\r\nProfiles on interface Wi-Fi:\r\n\r\nGroup policy profiles (read only)\r\n---------------------------------\r\n    A-MSFTWLAN (WPA2)\r\n    A-MSFTWLAN (WPA)\r\n    MSFTWLAN (WEP)\r\n\r\nUser profiles\r\n-------------\r\n    All User Profile     : Wayport_Access\r\n    All User Profile     : nalen dressingroom\r\n    All User Profile     : Scott's iPhone 4s\r\n    All User Profile     : HANSELMAN\r\n    All User Profile     : HANSELMAN-N\r\n    All User Profile     : HanselSpot\r\n    All User Profile     : SFO-WiFi\r\n    All User Profile     : AP-guest\r\n    All User Profile     : EliteWifi\r\n    All User Profile     : Qdoba Free Wifi\r\n    All User Profile     : Sunrise_Bagels\r\n\r\n";
             string result = ExecuteNetSh("wlan show profiles");
-            var listOfProfiles = from line in result.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries) 
-                                 let l = line.Split(new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries) 
-                                 where l.Length > 1 
-                                 select l[1].Trim();
-            
-            foreach (string profile in listOfProfiles)
-                ExecuteNetSh(String.Format("wlan export profile \"{0}\" folder=\"{1}\"", profile, Environment.CurrentDirectory));
+
+            var listOfProfiles = Regex.Matches(result, "(?<=: )(.*?)(?=\\r)", RegexOptions.IgnoreCase);
+
+            foreach (var match in listOfProfiles)
+            {
+                ExecuteNetSh(String.Format("wlan export profile \"{0}\" folder=\"{1}\"", match.ToString(), Environment.CurrentDirectory));
+
+            }
         }
 
         public static void DeleteExportedWifiProfiles()
