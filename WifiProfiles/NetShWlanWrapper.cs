@@ -63,16 +63,21 @@ namespace NetSh
 
                 var listOfProfiles = Regex.Matches(result, "(?<=: )(.*?)(?=\\r)", RegexOptions.IgnoreCase);
 
+                List<Task> tasks = new List<Task>();
                 foreach (var match in listOfProfiles)
                 {
-                    ExecuteNetSh(String.Format("wlan export profile \"{0}\" folder=\"{1}\"", match.ToString(), Environment.CurrentDirectory));
+                    tasks.Add(Task.Run(() =>
+                    {
+                        ExecuteNetSh(string.Format("wlan export profile \"{0}\" folder=\"{1}\"", match.ToString(), Environment.CurrentDirectory));
+                    })); 
                 }
+
+                Task.WaitAll(tasks.ToArray());
             });
         }
 
         public static void DeleteExportedWifiProfiles()
         {
-            //Delete the exported profiles we made, making sure they are what we think they are!
             foreach (string file in Directory.EnumerateFiles(Environment.CurrentDirectory, "*.xml"))
                 if (XElement.Load(file).Name.Namespace == ns)
                     File.Delete(file);
@@ -85,7 +90,6 @@ namespace NetSh
             p.StartInfo.CreateNoWindow = true;
             p.StartInfo.Arguments = arguments ?? String.Empty;
             p.StartInfo.UseShellExecute = false;
-            //p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
             p.StartInfo.RedirectStandardOutput = true;
             p.Start();
 
