@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Windows Desktop
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WifiProfiles", "WifiProfiles\WifiProfiles.csproj", "{4CE8135A-F8B0-4506-9830-D367859F5999}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WifiUI", "WifiUI\WifiUI.csproj", "{7332BA80-9837-424F-B6E4-C0CD0D1A6524}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExecuteCommand", "ExecuteCommand\ExecuteCommand.csproj", "{1D47C463-5318-4B02-9C8F-C31503683AF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wifiadhoc", "Wifiadhoc\Wifiadhoc.csproj", "{5ABD070F-360C-4624-9692-3107E7AC591E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +25,14 @@ Global
 		{7332BA80-9837-424F-B6E4-C0CD0D1A6524}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7332BA80-9837-424F-B6E4-C0CD0D1A6524}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7332BA80-9837-424F-B6E4-C0CD0D1A6524}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D47C463-5318-4B02-9C8F-C31503683AF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D47C463-5318-4B02-9C8F-C31503683AF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D47C463-5318-4B02-9C8F-C31503683AF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D47C463-5318-4B02-9C8F-C31503683AF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5ABD070F-360C-4624-9692-3107E7AC591E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5ABD070F-360C-4624-9692-3107E7AC591E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5ABD070F-360C-4624-9692-3107E7AC591E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5ABD070F-360C-4624-9692-3107E7AC591E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

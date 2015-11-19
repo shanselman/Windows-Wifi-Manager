@@ -3,16 +3,45 @@
     using NetSh;
     using System;
     using System.Linq;
+    using Wifiadhoc;
 
     class Program
     {
         static void Main(string[] args)
-        { 
-            //command line arguments officially got irritating at this point but I don't feel like bringing in a whole library.
-            if (args.Length > 1 && args[0].ToUpperInvariant() == Resources.stringResources.Delete && !string.IsNullOrEmpty(args[1]))
-                Delete(args[1]);
-            else
+        {
+            try
+            {
+                //command line arguments officially got irritating at this point but I don't feel like bringing in a whole library.
+                if (args[0].ToUpperInvariant() == Resources.stringResources.AutoDeletarParam 
+                    && args.Length > 1 
+                    && !string.IsNullOrEmpty(args[1]))
+                {
+                    Delete(args[1]);
+                    return;
+                }
+
+                if (args[0].ToUpperInvariant() == Resources.stringResources.CreateHostedNetWork
+                    && args.Length > 2 
+                    && !string.IsNullOrEmpty(args[1]) 
+                    && !string.IsNullOrEmpty(args[2]))
+                {
+                    CreateAdhoc(args[1], args[2]);
+                    return;
+                }
+
+                if (args[0].ToUpperInvariant() == Resources.stringResources.DriversInformation)
+                {
+                    DriversInfo();
+                    return;
+                }
+
                 List(args.Length == 1 && args[0].ToUpperInvariant() == Resources.stringResources.AutoDeletarParam);
+            }
+            catch
+            {
+                List(false);
+            }
+
         }
 
         static void Delete(string profileName)
@@ -34,7 +63,7 @@
 
             if (badWifiNetworkFound)
             {
-                if(!autoDelete) Console.WriteLine(Resources.stringResources.DeleteAutoConnect);
+                if (!autoDelete) Console.WriteLine(Resources.stringResources.DeleteAutoConnect);
                 if (autoDelete || Console.ReadLine().Trim().ToUpperInvariant().StartsWith(Resources.stringResources.AutoDeleteChar))
                 {
                     foreach (var a in profiles.Where(NetShWrapper.IsOpenAndAutoWifiProfile))
@@ -45,7 +74,21 @@
             }
             else
             {
-                Console.WriteLine( Resources.stringResources.NoWifi);
+                Console.WriteLine(Resources.stringResources.NoWifi);
+            }
+        }
+
+        static void CreateAdhoc(string ssId, string password)
+        {
+            Console.WriteLine(Adhoc.CreateHostedNetWork(ssId, password));
+        }
+
+        static void DriversInfo()
+        {
+            string[] result = Adhoc.DriversInfo();
+            foreach (string temp in result)
+            {
+                Console.WriteLine(temp);
             }
         }
     }

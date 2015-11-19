@@ -15,7 +15,7 @@ namespace NetSh
     /// Your thoughts are appreciate. My goal is "it works" and "fewer lines of code." 
     /// Not to mention this was hacked together in 20 minutes. - Scott Hanselman
     /// </summary>
-    public class NetShWrapper
+    public class NetShWrapper : ExecuteCommand.Execute
     {
         static XNamespace ns = "http://www.microsoft.com/networking/WLAN/profile/v1";
 
@@ -74,20 +74,6 @@ namespace NetSh
                     File.Delete(file);
         }
 
-        private static string ExecuteNetSh(string arguments = null)
-        {
-            Process p = new Process();
-            p.StartInfo.FileName = "netsh.exe";
-            p.StartInfo.CreateNoWindow = true;
-            p.StartInfo.Arguments = arguments ?? String.Empty;
-            p.StartInfo.UseShellExecute = false;
-            //p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            p.StartInfo.RedirectStandardOutput = true;
-            p.Start();
-
-            string output = p.StandardOutput.ReadToEnd();
-            return output;
-        }
     }
 }
 
