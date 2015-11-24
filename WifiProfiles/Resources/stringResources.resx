@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CreateHostedNetWork" xml:space="preserve">
+    <value>/ADHOC</value>
+  </data>
   <data name="AutoDeletarParam" xml:space="preserve">
     <value>/DELETEAUTOOPEN</value>
   </data>
@@ -130,12 +133,20 @@
     <value>
 Delete WiFi profiles that are OPEN *and* AUTO connect? [y/n]</value>
   </data>
+  <data name="NotSupported" xml:space="preserve">
+    <value>Hostednetwork Not Supported!!</value>
+  </data>
   <data name="NoWifi" xml:space="preserve">
-    <value>
-No WiFi profiles set to OPEN and AUTO connect were found.
-Option: Run with /deleteautoopen to auto delete.</value>
+    <value>No WiFi profiles set to OPEN and AUTO connect were found.
+Option: 
+Run with /deleteautoopen to auto delete.
+Run with /DRIVERSINFO to Get Driver Info.
+Run with /ADHOC ssid password to Create HostedNetwork.</value>
   </data>
   <data name="WarningAutoConnect" xml:space="preserve">
     <value>Warning: AUTO connect to OPEN WiFi</value>
+  </data>
+  <data name="DriversInformation" xml:space="preserve">
+    <value>/DRIVERSINFO</value>
   </data>
 </root>

@@ -13,6 +13,8 @@ Also, if you call it with the option /deleteautoopen it will automatically delet
 
 If you run "wifiprofiles delete NAME", it will delete the specified profile.
 
+If you run "/ADHOC ssid pass", it will create Adhoc profile.
+
 The code is garbage, but it made for a fun evening. Comments welcome.
 
 ##Possibilities
@@ -34,7 +36,10 @@ Sunrise_Bagels           manual       open
 Wayport_Access           manual       open
 
 No WiFi profiles set to OPEN and AUTO connect were found.
-Option: Run with /deleteautoopen to auto delete.
+Option:
+Run with /deleteautoopen to auto delete.
+Run with /DRIVERSINFO to Get Driver Info.
+Run with /ADHOC ssid password to Create HostedNetwork.
 ````
 
 

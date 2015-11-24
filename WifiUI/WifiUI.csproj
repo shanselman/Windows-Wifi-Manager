@@ -108,6 +108,10 @@
     <Resource Include="logo.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ExecuteCommand\ExecuteCommand.csproj">
+      <Project>{1d47c463-5318-4b02-9c8f-c31503683af9}</Project>
+      <Name>ExecuteCommand</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WifiProfiles\WifiProfiles.csproj">
       <Project>{4ce8135a-f8b0-4506-9830-d367859f5999}</Project>
       <Name>WifiProfiles</Name>
