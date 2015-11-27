@@ -11,25 +11,32 @@
             <MenuItem Header="{StaticResource Exit}" Click="Exit_Click" />
         </ContextMenu>
     </Window.Resources>
-    <tb:TaskbarIcon x:Name="trayIcon" IconSource="logo.ico" ToolTipText="{StaticResource ProgramTitle}" ContextMenu="{StaticResource tbMenu}" MenuActivation="RightClick">
-        <tb:TaskbarIcon.TrayPopup>
-            <ListView Name="listView" Height="325">
-                <ListView.View>
-                    <GridView ColumnHeaderContainerStyle="{StaticResource hideColumnHeader}">
-                        <GridView.Columns>
-                            <GridViewColumn Width="140" DisplayMemberBinding="{Binding Name}" />
-                            <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Authentication}" />
-                            <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding ConnectionMode}" />
-                        </GridView.Columns>
-                    </GridView>
-                </ListView.View>
-                <ListView.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="{StaticResource ForgetThis}" Click="Delete_Click" />
-                        <MenuItem Header="{StaticResource ForgetAllUnsafe}" Click="DeleteAutoOpen_Click" />
-                    </ContextMenu>
-                </ListView.ContextMenu>
-            </ListView>
-        </tb:TaskbarIcon.TrayPopup>
-    </tb:TaskbarIcon>
+    <Grid>
+        <tb:TaskbarIcon x:Name="trayIcon" IconSource="logo.ico" ToolTipText="{StaticResource ProgramTitle}" ContextMenu="{StaticResource tbMenu}" MenuActivation="RightClick">
+            <tb:TaskbarIcon.TrayPopup>
+                <Grid>
+                    <ListView Name="listView" Height="325">
+                        <ListView.View>
+                            <GridView ColumnHeaderContainerStyle="{StaticResource hideColumnHeader}">
+                                <GridView.Columns>
+                                    <GridViewColumn Width="140" DisplayMemberBinding="{Binding Name}" />
+                                    <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Authentication}" />
+                                    <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding ConnectionMode}" />
+                                </GridView.Columns>
+                            </GridView>
+                        </ListView.View>
+                        <ListView.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="{StaticResource ForgetThis}" Click="Delete_Click" />
+                                <MenuItem Header="{StaticResource ForgetAllUnsafe}" Click="DeleteAutoOpen_Click" />
+                            </ContextMenu>
+                        </ListView.ContextMenu>
+                    </ListView>
+                    <Border x:Name="loadingBorder" CornerRadius="3" Background="White" BorderBrush="Black" BorderThickness="1" Padding="10">
+                        <Label Content="Loading..." />
+                    </Border>
+                </Grid>
+            </tb:TaskbarIcon.TrayPopup>
+        </tb:TaskbarIcon>
+    </Grid>
 </Window>

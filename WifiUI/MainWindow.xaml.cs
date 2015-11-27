@@ -1,9 +1,9 @@
-﻿using NetSh;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Documents;
+using NetSh;
 
 namespace WifiUI
 {
@@ -12,11 +12,6 @@ namespace WifiUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        #region Constructors
-
-        /// <summary>
-        /// Constructs the window.
-        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
@@ -24,49 +19,42 @@ namespace WifiUI
             WifiProfiles = new ObservableCollection<WifiProfile>();
             listView.ItemsSource = WifiProfiles;
         }
-
-        #endregion
-
-        #region Properties
-
+        
         /// <summary>
         /// Represents the list of Wifi profiles to display.
         /// </summary>
         public ObservableCollection<WifiProfile> WifiProfiles { get; set; }
-
-        #endregion
-
-        #region Private Methods
-
-        private void RefreshItemsSource()
+        
+        private async Task RefreshItemsSourceAsync()
         {
+            listView.Visibility = Visibility.Collapsed;
+            loadingBorder.Visibility = Visibility.Visible;
+
             WifiProfiles.Clear();
 
-            List<WifiProfile> wifiProfiles = NetShWrapper.GetWifiProfiles();
-
-            /*
-             * Iterate over NetSh results to display them in the view.
-             */
+            List<WifiProfile> wifiProfiles = await NetShWrapper.GetWifiProfilesAsync();
+            
             foreach (WifiProfile wifiProfile in wifiProfiles)
             {
                 WifiProfiles.Add(wifiProfile);
             }
 
             listView.Items.Refresh();
-        }
 
-        #endregion
+            listView.Visibility = Visibility.Visible;
+            loadingBorder.Visibility = Visibility.Collapsed;
+        }
 
         #region Events
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Application.Current.Shutdown();
         }
 
-        void trayIcon_TrayLeftMouseDown(object sender, RoutedEventArgs e)
+        async void trayIcon_TrayLeftMouseDown(object sender, RoutedEventArgs e)
         {
-            RefreshItemsSource();
+            await RefreshItemsSourceAsync();
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
@@ -74,13 +62,10 @@ namespace WifiUI
             NetShWrapper.DeleteWifiProfile((listView.SelectedItem as WifiProfile).Name);
         }
 
-        private void DeleteAutoOpen_Click(object sender, RoutedEventArgs e)
+        private async void DeleteAutoOpen_Click(object sender, RoutedEventArgs e)
         {
-            List<WifiProfile> wifiProfiles = NetShWrapper.GetWifiProfiles();
-
-            /*
-             * Iterate over NetSh results to remove bad profiles.
-             */
+            List<WifiProfile> wifiProfiles = await NetShWrapper.GetWifiProfilesAsync();
+            
             foreach (WifiProfile wifiProfile in wifiProfiles.Where(NetShWrapper.IsOpenAndAutoWifiProfile))
             {
                 NetShWrapper.DeleteWifiProfile(wifiProfile.Name);

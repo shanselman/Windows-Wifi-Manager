@@ -1,9 +1,10 @@
-﻿namespace WifiProfiles
-{
-    using NetSh;
-    using System;
-    using System.Linq;
+﻿using NetSh;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
+namespace WifiProfiles
+{
     class Program
     {
         static void Main(string[] args)
@@ -12,7 +13,7 @@
             if (args.Length > 1 && args[0].ToUpperInvariant() == Resources.stringResources.Delete && !string.IsNullOrEmpty(args[1]))
                 Delete(args[1]);
             else
-                List(args.Length == 1 && args[0].ToUpperInvariant() == Resources.stringResources.AutoDeletarParam);
+                List(args.Length == 1 && args[0].ToUpperInvariant() == Resources.stringResources.AutoDeletarParam).Wait();
         }
 
         static void Delete(string profileName)
@@ -20,9 +21,9 @@
             Console.WriteLine(NetShWrapper.DeleteWifiProfile(profileName));
         }
 
-        static void List(bool autoDelete)
+        static async Task List(bool autoDelete)
         {
-            var profiles = NetShWrapper.GetWifiProfiles();
+            var profiles = await NetShWrapper.GetWifiProfilesAsync();
             var badWifiNetworkFound = false;
 
             foreach (var a in profiles)

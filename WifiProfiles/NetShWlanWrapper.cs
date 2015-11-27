@@ -1,14 +1,14 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace NetSh
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.IO;
-    using System.Linq;
-    using System.Xml.Linq;
-
     /// <summary>
     /// Lots of questions about what this should look like. I'm making temp files, calling shell stuff
     /// and generally being evil. Should this be IDispoable? Is it better to call something in WMI?
@@ -19,9 +19,9 @@ namespace NetSh
     {
         static XNamespace ns = "http://www.microsoft.com/networking/WLAN/profile/v1";
 
-        public static List<WifiProfile> GetWifiProfiles()
+        public static async Task<List<WifiProfile>> GetWifiProfilesAsync()
         {
-            ExportAllWifiProfiles();
+            await ExportAllWifiProfilesAsync();
 
             var profiles = new List<WifiProfile>();
             foreach (string file in Directory.EnumerateFiles(Environment.CurrentDirectory, "*.xml"))
@@ -29,14 +29,17 @@ namespace NetSh
                 var x = XElement.Load(file);
                 if (x.Name.Namespace == ns)
                 {
-                    profiles.Add(new WifiProfile() { 
+                    profiles.Add(new WifiProfile()
+                    {
                         Name = x.Descendants(ns + "name").First().Value,
                         ConnectionMode = x.Descendants(ns + "connectionMode").First().Value,
-                        Authentication = x.Descendants(ns + "authentication").First().Value 
+                        Authentication = x.Descendants(ns + "authentication").First().Value
                     });
                 }
             }
+
             DeleteExportedWifiProfiles();
+
             return profiles;
         }
 
@@ -52,23 +55,29 @@ namespace NetSh
             return profile.Authentication == "open" && profile.ConnectionMode == "auto";
         }
 
-        private static void ExportAllWifiProfiles()
+        private static async Task ExportAllWifiProfilesAsync()
         {
-            //string result = "\r\nProfiles on interface Wi-Fi:\r\n\r\nGroup policy profiles (read only)\r\n---------------------------------\r\n    A-MSFTWLAN (WPA2)\r\n    A-MSFTWLAN (WPA)\r\n    MSFTWLAN (WEP)\r\n\r\nUser profiles\r\n-------------\r\n    All User Profile     : Wayport_Access\r\n    All User Profile     : nalen dressingroom\r\n    All User Profile     : Scott's iPhone 4s\r\n    All User Profile     : HANSELMAN\r\n    All User Profile     : HANSELMAN-N\r\n    All User Profile     : HanselSpot\r\n    All User Profile     : SFO-WiFi\r\n    All User Profile     : AP-guest\r\n    All User Profile     : EliteWifi\r\n    All User Profile     : Qdoba Free Wifi\r\n    All User Profile     : Sunrise_Bagels\r\n\r\n";
-            string result = ExecuteNetSh("wlan show profiles");
-
-            var listOfProfiles = Regex.Matches(result, "(?<=: )(.*?)(?=\\r)", RegexOptions.IgnoreCase);
-
-            foreach (var match in listOfProfiles)
+            await Task.Run(() =>
             {
-                ExecuteNetSh(String.Format("wlan export profile \"{0}\" folder=\"{1}\"", match.ToString(), Environment.CurrentDirectory));
+                string result = ExecuteNetSh("wlan show profiles");
 
-            }
+                var listOfProfiles = Regex.Matches(result, "(?<=: )(.*?)(?=\\r)", RegexOptions.IgnoreCase);
+
+                List<Task> tasks = new List<Task>();
+                foreach (var match in listOfProfiles)
+                {
+                    tasks.Add(Task.Run(() =>
+                    {
+                        ExecuteNetSh(string.Format("wlan export profile \"{0}\" folder=\"{1}\"", match.ToString(), Environment.CurrentDirectory));
+                    })); 
+                }
+
+                Task.WaitAll(tasks.ToArray());
+            });
         }
 
         public static void DeleteExportedWifiProfiles()
         {
-            //Delete the exported profiles we made, making sure they are what we think they are!
             foreach (string file in Directory.EnumerateFiles(Environment.CurrentDirectory, "*.xml"))
                 if (XElement.Load(file).Name.Namespace == ns)
                     File.Delete(file);
@@ -81,7 +90,6 @@ namespace NetSh
             p.StartInfo.CreateNoWindow = true;
             p.StartInfo.Arguments = arguments ?? String.Empty;
             p.StartInfo.UseShellExecute = false;
-            //p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
             p.StartInfo.RedirectStandardOutput = true;
             p.Start();
 
