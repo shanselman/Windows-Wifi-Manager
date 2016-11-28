@@ -115,3 +115,6 @@ UpgradeLog*.XML
 
 # OS generated files
 Thumbs.db
+
+#Build Artifacts
+BuildArtifacts
