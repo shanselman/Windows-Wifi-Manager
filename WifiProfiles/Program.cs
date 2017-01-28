@@ -28,7 +28,7 @@
             foreach (var a in profiles)
             {
                 var warning = NetShWrapper.IsOpenAndAutoWifiProfile(a) ? Resources.stringResources.WarningAutoConnect : String.Empty;
-                Console.WriteLine("{0,-20} {1,10} {2,10} {3,30} ", a.Name, a.ConnectionMode, a.Authentication, warning);
+                Console.WriteLine("{0,-30} {1,10} {2,10} {3,30} ", a.Name, a.ConnectionMode, a.Authentication, warning);
                 if (!String.IsNullOrWhiteSpace(warning)) badWifiNetworkFound = true;
             }
 

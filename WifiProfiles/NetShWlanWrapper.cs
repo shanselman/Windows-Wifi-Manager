@@ -31,8 +31,8 @@ namespace NetSh
                 {
                     profiles.Add(new WifiProfile() { 
                         Name = x.Descendants(ns + "name").First().Value,
-                        ConnectionMode = x.Descendants(ns + "connectionMode").First().Value,
-                        Authentication = x.Descendants(ns + "authentication").First().Value 
+                        ConnectionMode = x.Descendants(ns + "connectionMode").FirstOrDefault()?.Value,
+                        Authentication = x.Descendants(ns + "authentication").FirstOrDefault()?.Value 
                     });
                 }
             }
@@ -62,8 +62,9 @@ namespace NetSh
             foreach (var match in listOfProfiles)
             {
                 ExecuteNetSh(String.Format("wlan export profile \"{0}\" folder=\"{1}\"", match.ToString(), Environment.CurrentDirectory));
-
+                Console.Write(".");
             }
+            Console.WriteLine();
         }
 
         public static void DeleteExportedWifiProfiles()
