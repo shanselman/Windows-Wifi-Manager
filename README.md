@@ -1,4 +1,5 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/jp1g7s4mn1hu5egk)](https://ci.appveyor.com/project/ScottHanselman/windows-wifi-manager)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fshanselman%2FWindows-Wifi-Manager.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fshanselman%2FWindows-Wifi-Manager?ref=badge_shield)
 
 Windows-Wifi-Manager
 ====================
@@ -38,3 +39,7 @@ Option: Run with /deleteautoopen to auto delete.
 ````
 
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fshanselman%2FWindows-Wifi-Manager.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fshanselman%2FWindows-Wifi-Manager?ref=badge_large)
