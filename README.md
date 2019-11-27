@@ -16,11 +16,11 @@ If you run "wifiprofiles delete NAME", it will delete the specified profile.
 
 The code is garbage, but it made for a fun evening. Comments welcome.
 
-##Possibilities
+## Possibilities
 
 I have a WifiProfile class that's basic, but it wouldn't be hard to put a WinForms wrapper around this thing. It would be a fun challenge to DUPLICATE the Win7 dialog exactly.
 
-##Example Run
+## Example Run
 
 ````C:\>Wifi.exe
 AP-guest                 manual    WPA2PSK
