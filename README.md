@@ -1,4 +1,5 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/jp1g7s4mn1hu5egk)](https://ci.appveyor.com/project/ScottHanselman/windows-wifi-manager)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fshanselman%2FWindows-Wifi-Manager.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fshanselman%2FWindows-Wifi-Manager?ref=badge_shield)
 
 Windows-Wifi-Manager
 ====================
@@ -15,11 +16,11 @@ If you run "wifiprofiles delete NAME", it will delete the specified profile.
 
 The code is garbage, but it made for a fun evening. Comments welcome.
 
-##Possibilities
+## Possibilities
 
 I have a WifiProfile class that's basic, but it wouldn't be hard to put a WinForms wrapper around this thing. It would be a fun challenge to DUPLICATE the Win7 dialog exactly.
 
-##Example Run
+## Example Run
 
 ````C:\>Wifi.exe
 AP-guest                 manual    WPA2PSK
@@ -38,3 +39,7 @@ Option: Run with /deleteautoopen to auto delete.
 ````
 
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fshanselman%2FWindows-Wifi-Manager.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fshanselman%2FWindows-Wifi-Manager?ref=badge_large)
